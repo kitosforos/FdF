@@ -6,7 +6,7 @@
 /*   By: maralons <maralons@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 16:41:38 by maralons          #+#    #+#             */
-/*   Updated: 2022/09/18 18:47:35 by maralons         ###   ########.fr       */
+/*   Updated: 2022/09/20 21:29:37 by maralons         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,15 @@ int	get_height(char *file)
 		free(line);
 		line = get_next_line(fd);
 	}
+	free(line);
 	close(fd);
 	return (height);
 }
 
-int		ft_wdcounter(char const *str, char c)
+int	ft_wdcounter(char const *str, char c)
 {
-	int i;
-	int words;
+	int	i;
+	int	words;
 
 	words = 0;
 	i = 0;
@@ -42,7 +43,7 @@ int		ft_wdcounter(char const *str, char c)
 	{
 		while (str[i] == c && str[i] != '\0')
 			i++;
-		if (str[i])
+		if (str[i] != '\n')
 			words++;
 		while (str[i] != c && str[i] != '\0')
 			i++;
@@ -77,10 +78,8 @@ void	fill_map(int *map_line, char *line)
 		i++;
 	}
 	i = 0;
-	while(nums[i])
-	{
+	while (nums[i])
 		free(nums[i++]);
-	}
 	free(nums);
 }
 
@@ -93,7 +92,7 @@ void	read_map(char *file, t_fdf *data)
 	i = 0;
 	data->height = get_height(file);
 	data->width = get_width(file);
-	data->map = (int **)malloc(sizeof(int*) * data->height + 1);
+	data->map = (int **)malloc(sizeof(int *) * data->height + 1);
 	while (i < data->height)
 		data->map[i++] = malloc(sizeof(int) * data->width + 1);
 	fd = open(file, O_RDONLY);
@@ -106,4 +105,5 @@ void	read_map(char *file, t_fdf *data)
 		line = get_next_line(fd);
 		i++;
 	}
+	free(line);
 }

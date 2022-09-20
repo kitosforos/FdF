@@ -4,7 +4,7 @@
 #include <math.h>
 #include <mlx.h>
 #include "get_next_line.h"
-#include "libft/libft.h"
+#include "../libft/libft.h"
 
 typedef struct	s_fdf
 {
@@ -15,10 +15,18 @@ typedef struct	s_fdf
 	int		color;
 	float	angle;
 	float	dim;
-
+	int 	shiftx;
+	int		shifty;
 	void	*mlx_ptr;
 	void	*win_ptr;
 } 	t_fdf;
+
+typedef struct	s_point
+{
+	float	x;
+	float	y;
+	int		z;
+} t_point;
 
 int		get_height(char *file);
 
@@ -32,6 +40,6 @@ void	read_map(char *file, t_fdf *data);
 
 void	draw(t_fdf *data);
 
-void	bresehnam(float x0, float y0, float x1, float y1, t_fdf *data);
+void	bresehnam(t_point *p0, t_point *p1, t_fdf *data);
 
 float	absolut(float i);
